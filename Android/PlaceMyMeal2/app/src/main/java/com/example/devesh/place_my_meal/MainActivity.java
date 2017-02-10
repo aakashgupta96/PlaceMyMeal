@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
             return;
         } else {
-            UserName.setText(mFirebaseUser.getDisplayName());
+//            UserName.setText(mFirebaseUser.getDisplayName());
             //UserName.setText(mUsername);
         }
 //        mGoogleApiClient = new GoogleApiClient.Builder(this)

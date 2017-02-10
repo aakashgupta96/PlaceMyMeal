@@ -4,14 +4,61 @@
     android:id="@+id/activity_order_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.devesh.place_my_meal.OrderPage">
 
-    <ListView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/list_view"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
 
-        ></ListView>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="430sp"
+            android:id="@+id/list_view_final"
+            >
+
+
+        </ListView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:padding="5sp"
+            android:layout_height="50sp">
+
+            <TextView
+                android:layout_width="140sp"
+                android:layout_height="40sp"
+                android:text="Grand Total"
+
+                android:textSize="20sp"
+                android:textColor="#000000"
+                />
+
+            <TextView
+                android:layout_width="100sp"
+
+                android:layout_height="40sp"
+                android:id="@+id/set_value"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                />
+
+            <Button
+                android:layout_marginLeft="10sp"
+                android:layout_width="80sp"
+                android:layout_height="40sp"
+                android:id="@+id/pay"
+                android:text="PAY"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
 
 </RelativeLayout>

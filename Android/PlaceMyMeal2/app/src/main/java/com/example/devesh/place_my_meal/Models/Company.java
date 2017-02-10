@@ -10,21 +10,21 @@ public class Company {
     public static class Items {
 
 
-        private Integer id;
+        private String id;
         private String name;
-        private Integer number;
 
-        public Items(Integer id, String name, Integer number) {
+
+        public Items(String id, String name) {
             this.id = id;
             this.name = name;
-            this.number = number;
+
         }
 
-        public Integer getId() {
+        public String getId() {
             return id;
         }
 
-        public void setId(Integer id) {
+        public void setId(String id) {
             this.id = id;
         }
 
@@ -36,13 +36,7 @@ public class Company {
             this.name = name;
         }
 
-        public Integer getNumber() {
-            return number;
-        }
 
-        public void setNumber(Integer number) {
-            this.number = number;
-        }
     }
 
 }

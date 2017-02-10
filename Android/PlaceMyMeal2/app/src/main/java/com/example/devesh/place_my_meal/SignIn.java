@@ -93,9 +93,7 @@ public class SignIn extends AppCompatActivity implements GoogleApiClient.OnConne
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
-//                String userID = mFirebaseAuth.getCurrentUser().getEmail();
-//                String userName = mFirebaseAuth.getCurrentUser().getDisplayName();
-//                databaseReference.child("users").setValue(userID);
+
                 Intent intent1=new Intent(SignIn.this,MainActivity.class);
                 startActivity(intent1);
             } else {

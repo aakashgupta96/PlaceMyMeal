@@ -21,12 +21,17 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class SignIn extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,View.OnClickListener {
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
     private SignInButton mSignInButton;
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mFirebaseAuth;
+
+  private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,8 @@ public class SignIn extends AppCompatActivity implements GoogleApiClient.OnConne
       //ar = (Toolbar) findViewById(R.id.toolbar);
      //   setSupportActionBar(toolbar);
         // Assign fields
+
+        databaseReference = FirebaseDatabase.getInstance().getReference();
         mSignInButton = (SignInButton) findViewById(R.id.sign_in_button);
         // Set click listeners
         mSignInButton.setOnClickListener(this);
@@ -86,6 +93,11 @@ public class SignIn extends AppCompatActivity implements GoogleApiClient.OnConne
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
+                String userID = mFirebaseAuth.getCurrentUser().getEmail();
+                String userName = mFirebaseAuth.getCurrentUser().getDisplayName();
+
+                Intent intent1=new Intent(this,OrderPage.class);
+                startActivity(intent1);
             } else {
                 // Google Sign In failed
                 Log.e(TAG, "Google Sign In failed.");
@@ -109,6 +121,9 @@ public class SignIn extends AppCompatActivity implements GoogleApiClient.OnConne
                             Toast.makeText(SignIn.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
+                            String name = mFirebaseAuth.getCurrentUser().getDisplayName().toString().trim();
+                            String email = mFirebaseAuth.getCurrentUser().getEmail().toString().trim();
+                            databaseReference.child("users").setValue(email,name);
                             startActivity(new Intent(SignIn.this, MainActivity.class));
                             finish();
                         }

@@ -32,6 +32,9 @@ public class OrderPage extends AppCompatActivity {
 
         myList = new ArrayList<>();
 
+
+        adapter = new Adapter(myList);
+
     }
 
 

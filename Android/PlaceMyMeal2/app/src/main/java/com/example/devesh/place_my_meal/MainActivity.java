@@ -85,14 +85,13 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot dsp : dataSnapshot.getChildren()){
                     Log.d(TAG,"helllowhshd");
-                    Map<String, String > map = (Map<String, String>) dsp.getValue();
-
+                    Company.Items object = (Company.Items) dsp.getValue();
                     //Company.Items object = new Company.Items("","");
                     //object=dsp.getValue(Company.Items.class);
                     // Company.Items object = new Company.Items(map.get("id"),map.get("name"));
                     //Log.d(TAG,object.getName()+" "+object.getId());
-                    myList.add(new Company.Items(map.get("id"),map.get("name")));
-                    Log.d(TAG , map.get("id")+" "+map.get("name"));
+                    myList.add(object);
+                  //  Log.d(TAG , map.get("id")+" "+map.get("name"));
 
           //          Toast.makeText(getApplication(),myList.size()+" ", Toast.LENGTH_LONG).show();
                 }

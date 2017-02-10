@@ -1,5 +1,6 @@
 package com.example.devesh.place_my_meal;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.devesh.place_my_meal.Models.MenuOrder;
+import com.example.devesh.place_my_meal.Models.OffDatabase;
+import com.example.devesh.place_my_meal.Models.Table;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,6 +56,10 @@ public class MenuPage extends AppCompatActivity {
                 for (DataSnapshot dsp : dataSnapshot.getChildren()) {
                     MenuOrder.port element = dsp.getValue(MenuOrder.port.class);
 
+                    if(main.matches(String.valueOf(element.getcompany_id())))
+                    {
+                        myList.add((element));
+                    }
                 }
 
             }
@@ -70,7 +77,9 @@ public class MenuPage extends AppCompatActivity {
 
     void confirm(){
 
-
+        listView = (ListView) findViewById(R.id.listt_view_menu);
+        adapter = new Adapter(myList);
+        adapter.notifyDataSetChanged();
     }
 
     public class Adapter extends BaseAdapter{
@@ -111,14 +120,28 @@ public class MenuPage extends AppCompatActivity {
             add = (Button) view.findViewById(R.id.add);
             sub = (Button) view.findViewById(R.id.sub);
 
-            MenuOrder.port object = mList.get(i);
+            final MenuOrder.port object = mList.get(i);
 
             tv1.setText(object.getName());
             tv2.setText(String.valueOf(object.getPrice()));
 
+            //MenuOrder.port object = mList.get(i);
+
             add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    myDatabase = OrderDatabase.getWritableDatabase(getApplicationContext());
+
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put(OffDatabase.Columns.MENU_ID,object.getId());
+                    contentValues.put(OffDatabase.Columns.OUTLET_ID,main);
+                    contentValues.put(OffDatabase.Columns.NAME,object.getName());
+                    contentValues.put(OffDatabase.Columns.PRICE,object.getPrice());
+                    contentValues.put(OffDatabase.Columns.QUANTITY,1);
+
+                    myDatabase.insert(OffDatabase.TABLE_NAME,null,contentValues);
+
 
                 }
             });
@@ -126,6 +149,10 @@ public class MenuPage extends AppCompatActivity {
             sub.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    myDatabase = OrderDatabase.getWritableDatabase(getApplicationContext());
+
+                    myDatabase.delete(OffDatabase.TABLE_NAME,OffDatabase.Columns.NAME+"="+object.getName(),null);
 
                 }
             });

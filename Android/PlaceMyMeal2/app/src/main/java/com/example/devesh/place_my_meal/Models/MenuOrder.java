@@ -11,13 +11,13 @@ public class MenuOrder {
         String name;
 
         Integer id;
-        Integer menu_id;
+        Integer company_id;
         Integer price;
 
-        public port(String name, Integer id, Integer menu_id, Integer price) {
+        public port(String name, Integer id, Integer company_id, Integer price) {
             this.name = name;
             this.id = id;
-            this.menu_id = menu_id;
+            this.company_id = company_id;
             this.price = price;
         }
 
@@ -37,12 +37,12 @@ public class MenuOrder {
             this.id = id;
         }
 
-        public Integer getMenu_id() {
-            return menu_id;
+        public Integer getcompany_id() {
+            return company_id;
         }
 
-        public void setMenu_id(Integer menu_id) {
-            this.menu_id = menu_id;
+        public void setcompany_id(Integer company_id) {
+            this.company_id = company_id;
         }
 
         public Integer getPrice() {

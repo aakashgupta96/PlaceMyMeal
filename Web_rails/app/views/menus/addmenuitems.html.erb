@@ -1,0 +1,9 @@
+<%= form_for(@menu_item, url: '/menus/add') do |f| %>
+	<%= f.label :name %>
+	<%= f.text_field :name %><br>
+	<%= f.label :price %>
+	<%= f.text_field :price %>
+	<%= f.label :image %>
+	<%= f.file_field :image %>
+	<%= f.submit %>
+<% end %>

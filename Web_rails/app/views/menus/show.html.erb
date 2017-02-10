@@ -1,0 +1,12 @@
+<ul>
+	<% @menu_items.each do |item| %>
+		<li>
+			<div>
+				name : <%= item.name %>
+			</div>
+			<div>
+				price: <%= item.price %>
+			</div>
+		</li>
+	<% end %>
+</ul>

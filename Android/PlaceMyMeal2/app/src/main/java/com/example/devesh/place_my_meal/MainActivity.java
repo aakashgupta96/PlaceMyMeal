@@ -67,19 +67,11 @@ public class MainActivity extends AppCompatActivity {
 
             myList = new ArrayList<>();
 
-            listView= (ListView) findViewById(R.id.list_view_company);
 
 
 
 
-            Log.d(TAG,"hello123456");
-            adapter = new Adapter(myList);
-            Log.d(TAG,"hello12");
-            listView.setAdapter(adapter);
-            Log.d(TAG,"hello1234");
-            adapter.notifyDataSetChanged();
-
-            perform();
+       perform();
         }
 
     }
@@ -113,8 +105,20 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Toast.makeText(getApplication(),myList.size()+" ", Toast.LENGTH_LONG).show();
+        confirm();
+       // adapter.notifyDataSetChanged();
+    }
 
+    public void confirm(){
+        listView= (ListView) findViewById(R.id.list_view_company);
+        Log.d(TAG,"hello123456");
+        adapter = new Adapter(myList);
+        Log.d(TAG,"hello12");
+        listView.setAdapter(adapter);
+        Log.d(TAG,"hello1234");
         adapter.notifyDataSetChanged();
+
+
     }
 
     public class Adapter extends BaseAdapter{
@@ -148,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
 
+            Log.d(TAG,"Fuck this shit");
             LayoutInflater layoutInflater = getLayoutInflater();
             Holder holder = new Holder();
 
@@ -162,13 +167,26 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
-
             //ImageView imageView = (ImageView) view.findViewById(R.id.outlet_image);
             //TextView textView = (TextView) view.findViewById(R.id.outlet_name);
 
-            Company.Items obj = mList.get(i);
+            final Company.Items obj = mList.get(i);
 
-            Log.d(TAG,obj.getName());
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Bundle args = new Bundle();
+                    //args.putString("id",obj.getId());
+                    Intent intent = new Intent(getApplicationContext(),OrderPage.class);
+                    intent.putExtra("id",obj.getId());
+                    startActivity(intent);
+                }
+            });
+
+            Log.d(TAG,obj.getName()+" ");
+
+            //Log.d(TAG,obj.getName());
             holder.name.setText(obj.getName());
 
             return view;

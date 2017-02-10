@@ -11,12 +11,22 @@ public class MenuItem {
         Integer CompanyID;
         Integer Quantity;
         Integer Value;
+        String Name;
 
-        public Food(Integer menuID, Integer companyID, Integer quantity, Integer value) {
+        public Food(Integer menuID, Integer companyID, Integer quantity, Integer value, String name) {
             MenuID = menuID;
             CompanyID = companyID;
             Quantity = quantity;
             Value = value;
+            Name = name;
+        }
+
+        public String getName() {
+            return Name;
+        }
+
+        public void setName(String name) {
+            Name = name;
         }
 
         public Integer getMenuID() {

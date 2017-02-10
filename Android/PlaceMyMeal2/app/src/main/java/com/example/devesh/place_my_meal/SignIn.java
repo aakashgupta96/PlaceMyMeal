@@ -41,7 +41,7 @@ public class SignIn extends AppCompatActivity implements GoogleApiClient.OnConne
      //   setSupportActionBar(toolbar);
         // Assign fields
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://placemymeal.firebaseio.com/");
         mSignInButton = (SignInButton) findViewById(R.id.sign_in_button);
         // Set click listeners
         mSignInButton.setOnClickListener(this);
@@ -63,7 +63,7 @@ public class SignIn extends AppCompatActivity implements GoogleApiClient.OnConne
             FirebaseUser user = authResult.getUser();
             Toast.makeText(this, "Welcome " + user.getEmail(), Toast.LENGTH_SHORT).show();
             // Go back to the main activity
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(SignIn.this, MainActivity.class));
         }
     }
 
@@ -93,10 +93,10 @@ public class SignIn extends AppCompatActivity implements GoogleApiClient.OnConne
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
-                String userID = mFirebaseAuth.getCurrentUser().getEmail();
-                String userName = mFirebaseAuth.getCurrentUser().getDisplayName();
-
-                Intent intent1=new Intent(this,OrderPage.class);
+//                String userID = mFirebaseAuth.getCurrentUser().getEmail();
+//                String userName = mFirebaseAuth.getCurrentUser().getDisplayName();
+//                databaseReference.child("users").setValue(userID);
+                Intent intent1=new Intent(SignIn.this,MainActivity.class);
                 startActivity(intent1);
             } else {
                 // Google Sign In failed

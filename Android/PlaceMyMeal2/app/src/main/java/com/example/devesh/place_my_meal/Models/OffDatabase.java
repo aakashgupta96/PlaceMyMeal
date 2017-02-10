@@ -14,6 +14,7 @@ public class OffDatabase extends Table{
             +Columns.OUTLET_ID + TYPE_INT + COMMA
             +Columns.QUANTITY + TYPE_INT + COMMA
             +Columns.PRICE + TYPE_INT
+            +Columns.NAME + TYPE_TEXT
             +RBR + ";" ;
 
     public interface Columns{
@@ -21,5 +22,6 @@ public class OffDatabase extends Table{
         String OUTLET_ID = "outlet_id";
         String QUANTITY = "quantity";
         String PRICE = "price";
+        String NAME = "name";
     }
 }

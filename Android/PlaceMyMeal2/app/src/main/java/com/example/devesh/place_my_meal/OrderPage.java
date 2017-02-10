@@ -53,7 +53,7 @@ public class OrderPage extends AppCompatActivity {
     public void perform(){
         orderDatabase = OrderDatabase.getReadableDatabase(getApplicationContext());
 
-        
+
 
         showTotal.setText(String.valueOf(TotalBill));
     }

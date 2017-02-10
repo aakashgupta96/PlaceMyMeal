@@ -33,47 +33,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UserName=(TextView)findViewById(R.id.username);
-        setContentView(R.layout.activity_main);
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        logout=(Button)findViewById(R.id.logout);
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        if (mFirebaseUser == null) {
-            // Not signed in, launch the Sign In activity
-           // startActivity(new Intent(this, SignIn.class));
-           // finish();
-            return;
-        } else {
 
-
-            databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://placemymeal.firebaseio.com/users");
-
-            String userID = mFirebaseAuth.getCurrentUser().getEmail();
-            String userName = mFirebaseAuth.getCurrentUser().getDisplayName();
-            databaseReference.child(userID).setValue(userName);
-        }
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */, new GoogleApiClient.OnConnectionFailedListener() {
-                    @Override
-                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                        startActivity(new Intent(getApplicationContext(),SignIn.class));
-                    }
-                } /* OnConnectionFailedListener */)
-                .addApi(Auth.GOOGLE_SIGN_IN_API)
-                .build();
-
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mFirebaseAuth.signOut();
-                Auth.GoogleSignInApi.signOut(mGoogleApiClient);
-                mFirebaseUser=null;
-                startActivity(new Intent(getApplicationContext(),SignIn.class));
-            }
-        });
 
     }
-
-
 
 }

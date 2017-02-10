@@ -32,11 +32,17 @@ public class OrderPage extends AppCompatActivity {
 
         myList = new ArrayList<>();
 
+        perform();
 
         adapter = new Adapter(myList);
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
     }
 
+    public void perform(){
+
+    }
 
     public class Adapter extends BaseAdapter{
 

@@ -1,0 +1,20 @@
+<a href="/addmenuitems">Add Item In Menu</a><br>	
+<a href="http://139.59.62.17"> Start Live Polling</a>
+
+<ul>
+	<% @orders.each do |order| %>
+		<li>
+			<ul>
+				<% order.ordered_items.each do |order_item| %>
+					<li><div><%= MenuItem.find_by_id(order_item.menu_item_id).name %></div>
+						<div>Quantity = <%=order_item.quantity%></div>
+					</li>
+				<% end %>
+			</ul>
+			<form action="/orders/mark_done" method="post">
+				<input type="hidden" name="order_id" value="<%=order.id%>">
+				<input type="submit" value="Mark Done">
+			</form>
+		</li>
+	<% end %>
+</ul>

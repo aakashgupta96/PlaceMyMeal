@@ -1,0 +1,26 @@
+<input id="email" type="text" name="email" placeholder="Enter your email">
+<input id="pass" type="password" name="password" placeholder="password">
+<button id="signin">Sign In</button>
+<button id="signup">Sign Up</button>
+
+<script>
+	var email = document.getElementById("email");
+	var password = document.getElementById("pass");
+	var signin = document.getElementById("signin");
+	var signup = document.getElementById("signup");
+	signin.addEventListener('click',function(){
+		const email = document.getElementById("email").value;
+		const pass = document.getElementById("pass").value;
+		const promise = auth.signInWithEmailAndPassword(email,pass);
+		promise.catch(e => console.log(e.message));
+	});
+
+	signup.addEventListener('click',function(){
+		const email = document.getElementById("email").value;
+		const pass = document.getElementById("pass").value;
+		const promise = auth.createUserWithEmailAndPassword(email,pass);
+		promise.catch(e => console.log(e.message));
+	});
+	
+	console.log(auth);
+</script>

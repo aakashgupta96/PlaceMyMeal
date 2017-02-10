@@ -1,0 +1,9 @@
+<%= @orders %>
+<script>
+	//window.addEventListener('load',function(){console.log("current user is = " + user);});
+	//$(document).ready
+	user = firebase.auth().currentUser;
+	document.addEventListener("DOMContentLoaded", function(event) { 
+  		console.log("current user is = " + user);
+	});
+</script>

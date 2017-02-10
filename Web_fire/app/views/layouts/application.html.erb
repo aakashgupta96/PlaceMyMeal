@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Web</title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application'%>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+	<script>
+		var user = undefined;
+		var config = {
+	    apiKey: "AIzaSyA26PW4S51uQRZ0mPKCrGJUTduyUMjDU3w",
+	    authDomain: "placemymeal.firebaseapp.com",
+	    databaseURL: "https://placemymeal.firebaseio.com",
+	    storageBucket: "placemymeal.appspot.com",
+	    messagingSenderId: "311706749794"
+	  };
+
+		firebase.initializeApp(config);
+	</script>
+		<header>
+		
+			<nav>
+			    <div class="nav-wrapper">
+			      <a href="#" class="brand-logo center"><img src="/logo.png" heigth=50 width=140></a>
+			      <ul id="nav-mobile" class="left hide-on-med-and-down">
+			        <li><a href="/" id="sign_in" class="">Sign In</a><br></li>
+			        <li><a href="#" id="sign_out" class="hide">Sign Out</a></li>
+			        
+			      </ul>
+			    </div>
+  			</nav>
+		
+		
+		</header>
+	<script>
+		var signIn = document.getElementById("sign_in");
+		var signOut = document.getElementById("sign_out");
+		var provider = new firebase.auth.GoogleAuthProvider();
+		const auth = firebase.auth();
+		auth.onAuthStateChanged(firebaseUser =>{
+			console.log("Status Chnaged");
+			if(firebaseUser)
+			{
+				user = firebaseUser;
+				console.log(firebaseUser);
+				signIn.classList.add("hide");
+				signOut.classList.remove("hide");
+				if(window.location!="http://localhost:3000/orders" )
+				{
+					window.location = "http://localhost:3000/orders";
+				}
+			}
+			else
+			{
+				user = undefined;
+				console.log("Signed Out");
+				signIn.classList.remove("hide");
+				signOut.classList.add("hide");
+				if(window.location!="http://localhost:3000/" )
+				{
+					window.location = "http://localhost:3000/";
+				}
+			}
+
+		});
+
+		var db = firebase.database();
+		
+	</script>
+	<%= yield %>
+	<script>
+		signIn.addEventListener('click',function(){
+			firebase.auth().signInWithPopup(provider).then(function(result) {
+			  // This gives you a Google Access Token. You can use it to access the Google API.
+			  var token = result.credential.accessToken;
+			  // The signed-in user info.
+			  user = result.user;
+
+			  // ...
+			}).catch(function(error) {
+			  // Handle Errors here.
+			  var errorCode = error.code;
+			  var errorMessage = error.message;
+			  // The email of the user's account used.
+			  var email = error.email;
+			  // The firebase.auth.AuthCredential type that was used.
+			  var credential = error.credential;
+			  // ...
+			});
+		});
+
+		signOut.addEventListener('click',function(){
+			auth.signOut();
+		});
+	</script>
+
+
+</body>
+</html>

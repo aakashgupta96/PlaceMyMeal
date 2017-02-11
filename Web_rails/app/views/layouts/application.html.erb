@@ -132,6 +132,12 @@
     <% if not pop.nil? %>
     alert("<%= pop %>")
     <%end%>
+
+    console.log(window.location)
+    if(window.location.href == "http://localhost:3000/users/sign_in" || window.location.href == "http://localhost:3000/users/sign_up" )
+    {
+      document.body.classList.add("back");
+    }
 </script>
 </body>
 </html>

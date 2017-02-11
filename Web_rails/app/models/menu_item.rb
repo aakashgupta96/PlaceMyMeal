@@ -1,4 +1,4 @@
 class MenuItem < ActiveRecord::Base
 	mount_uploader :image, ImageUploader
-	belongs_to :menu
+	belongs_to :user
 end

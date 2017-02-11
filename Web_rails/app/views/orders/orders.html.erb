@@ -1,20 +1,28 @@
-<a href="/addmenuitems">Add Item In Menu</a><br>	
-<a href="http://139.59.62.17"> Start Live Polling</a>
+<div class="row"><a href="/addmenuitems" class="col s3 btn">Add Item In Menu</a>
+<a href="http://139.59.62.17" class="col s3 offset-s3 btn"> Start Live Polling</a>
+</div>
 
 <ul>
 	<% @orders.each do |order| %>
-		<li>
-			<ul>
+		<li class="container card z-depth-5" style="box-shadow: 0 0 5px 5px #888888;">
+			<ul class="container">
 				<% order.ordered_items.each do |order_item| %>
-					<li><div><%= MenuItem.find_by_id(order_item.menu_item_id).name %></div>
-						<div>Quantity = <%=order_item.quantity%></div>
+					<li class="row"><div class="col s6"><%= MenuItem.find_by_id(order_item.menu_item_id).name %></div>
+						<div class="col s6">Quantity = <%=order_item.quantity%></div>
 					</li>
 				<% end %>
 			</ul>
-			<form action="/orders/mark_done" method="post">
+			<form action="/orders/mark_done" method="post" class=" row">
 				<input type="hidden" name="order_id" value="<%=order.id%>">
-				<input type="submit" value="Mark Done">
+				<input type="submit" value="Mark Done" class="col s3 offset-s4 btn">
 			</form>
 		</li>
 	<% end %>
 </ul>
+
+
+<script>
+	setTimeout(function(){
+   window.location.reload(1);
+}, 5000);
+</script>

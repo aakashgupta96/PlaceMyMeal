@@ -1,0 +1,4 @@
+<h2>Your order has been successfully placed!!!</h2>
+<h3>
+	Waiting No is :<%= current_consumer.orders.last.user.orders.where(done: false).index(current_consumer.orders.last)+1 %>
+</h3>

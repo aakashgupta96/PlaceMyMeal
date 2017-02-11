@@ -1,0 +1,22 @@
+<form action="/consumers/menu" method="get">
+
+<% unless @messages.nil? %>
+	<h4>Notifications:</h3>
+	<ul>
+		<% @messages.each do |message| %>
+			<li><h3><%=message.notification%></h3></li>
+		<% end %>
+	</ul>
+<%end %>
+
+<div class="field">
+    <%= label_tag :Outlet %>
+    <%=  select_tag(:user_id, options_for_select(@outlets.map { |obj| [obj['name'], obj['id']] }),{class: 'select'}) %>
+ </div>
+ 	<%= submit_tag :Next, class: "btn"%>
+
+<script>
+	setTimeout(function(){
+   window.location.reload(1);
+}, 15000);
+</script>

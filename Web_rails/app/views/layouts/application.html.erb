@@ -41,9 +41,20 @@
                 <li><%= link_to "SignOut", destroy_user_session_path, method: "Delete"%></li>
               </ul>
             </li>
+        <% elsif consumer_signed_in? %>
+            <li>
+              <div class='dropdown-button btn' data-activates='dropdown1' style="max-width : 180px;">Hi <%=current_consumer.email %></div>
+              <!-- Dropdown Structure -->
+              <ul id='dropdown1' class='dropdown-content'>
+                <li><%#= link_to "Profile", show_profile_path(username: current_user.username) %></li>
+                <li><%#= link_to "Edit Profile", edit_user_registration_path%></li>
+                <li class="divider"></li>
+                <li><%= link_to "SignOut", destroy_consumer_session_path, method: "Delete"%></li>
+              </ul>
+            </li>
         <% else %>
-            <li><%= link_to "LogIn", new_user_session_path %></li>
-            <li><%= link_to "Sign Up", new_user_registration_path %></li>
+            <li><%= link_to "Company LogIn", new_user_session_path %></li>
+            <li><%= link_to "Consumer LogIn", new_consumer_session_path %></li>
         <% end%>
         </li>
         <li>
@@ -133,8 +144,7 @@
     alert("<%= pop %>")
     <%end%>
 
-    console.log(window.location)
-    if(window.location.href == "http://localhost:3000/users/sign_in" || window.location.href == "http://localhost:3000/users/sign_up" )
+    if(window.location.href.endsWith("users/sign_in") || window.location.href.endsWith("users/sign_up") || window.location.href.endsWith("consumers/sign_in") || window.location.href.endsWith("consumers/sign_up"))
     {
       document.body.classList.add("back");
     }

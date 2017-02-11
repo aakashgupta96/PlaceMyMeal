@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
+  devise_for :consumers
   devise_for :users, controllers: {registrations: "users/registrations", sessions: "users/sessions"}
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   mount Resque::Server, :at => "/resque"
 
   # You can have the root of your site routed with "root"
+   get 'consumers/outlets'
+   get 'consumers/menu'
+   post 'consumers/add_items'
+   get 'consumers/order'
    root 'orders#index'
    get '/orders' => "orders#orders"
    post '/orders/mark_done' => "orders#mark_done"

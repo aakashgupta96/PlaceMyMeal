@@ -17,9 +17,13 @@
 	margin: 0px;
 	padding: 0px;
 }
+body>div>nav
+{
+	top: 0;
+}
 .back
 {
-	background-image: url('background.jpg');
+	background-image: url('/background.jpg');
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
 	height:655px;
@@ -29,3 +33,7 @@
 	width:100%;
 }
 
+.select
+{
+	display: block !important;
+}

@@ -4,6 +4,8 @@ class OrdersController < ApplicationController
 	def index
 		if current_user
 			return redirect_to '/orders'
+		elsif current_consumer
+			return redirect_to '/consumers/outlets'
 		else
 			return redirect_to new_user_session_path
 		end
@@ -17,6 +19,11 @@ class OrdersController < ApplicationController
 		@order.done = true
 		@order.save
 		redirect_to '/orders'
+		m = Message.new()
+		m.notification = "Your order is ready"
+		m.consumer = @order.consumer
+		m.seen = false
+		m.save!
 	end
 
 

@@ -1,0 +1,8 @@
+<form action="/consumers/add_items" method="post" >
+	<input type="hidden" name="company_id" value="<%=@company.id%>">
+	<% @items.each do |item| %>
+		<% ordered_items = Hash.new() %>
+		<div class="row"><%= item.name%> : <%= item.price%> per item <input type="text" name="ordered_items[<%=item.id%>]" value="0">  </div>
+	<%end%>
+	<input type="submit" Value="Submit Order" class="btn">
+</form>

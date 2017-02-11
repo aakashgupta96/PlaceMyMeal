@@ -1,5 +1,6 @@
 package com.example.devesh.place_my_meal;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,9 @@ import android.widget.TextView;
 
 import com.example.devesh.place_my_meal.Models.MenuItem;
 import com.example.devesh.place_my_meal.Models.OffDatabase;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -25,6 +29,9 @@ public class OrderPage extends AppCompatActivity {
     Adapter adapter;
     TextView showTotal;
     SQLiteDatabase orderDatabase;
+
+    DatabaseReference databaseReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,12 +41,12 @@ public class OrderPage extends AppCompatActivity {
         myList = new ArrayList<>();
         myListView = (ListView) findViewById(R.id.list_view_final);
         Pay = (Button) findViewById(R.id.pay);
+        TotalBill = 0;
+
+        databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://placemymeal.firebaseio.com/orders/");
 
         perform();
 
-        adapter = new Adapter(myList);
-        myListView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
 
         Pay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,10 +59,49 @@ public class OrderPage extends AppCompatActivity {
 
     public void perform(){
         orderDatabase = OrderDatabase.getReadableDatabase(getApplicationContext());
+        myList.clear();
 
+        DatabaseReference mref = databaseReference.child("ordered_items");
 
+        String proj[]={
+                OffDatabase.Columns.MENU_ID,
+                OffDatabase.Columns.OUTLET_ID,
+                OffDatabase.Columns.NAME,
+                OffDatabase.Columns.PRICE,
+                OffDatabase.Columns.QUANTITY
+        };
+
+        Cursor cursor = orderDatabase.query(OffDatabase.TABLE_NAME,proj,null,null,null,null,null);
+int cnt=0;
+
+        while (cursor.moveToNext()){
+
+            Integer id1= cursor.getInt(cursor.getColumnIndexOrThrow(OffDatabase.Columns.MENU_ID));
+            Integer id2 = cursor.getInt(cursor.getColumnIndexOrThrow(OffDatabase.Columns.OUTLET_ID));
+            Integer pri = cursor.getInt(cursor.getColumnIndexOrThrow(OffDatabase.Columns.PRICE));
+            Integer qua = cursor.getInt(cursor.getColumnIndexOrThrow(OffDatabase.Columns.QUANTITY));
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(OffDatabase.Columns.NAME));
+
+            TotalBill+=pri;
+
+            mref.push().setValue("menu_item_id",id1);
+            mref.push().setValue("quantity",qua);
+            mref.push().setValue("order_id",cnt);
+
+            cnt++;
+
+        }
+
+        confirm();
 
         showTotal.setText(String.valueOf(TotalBill));
+    }
+
+    public void confirm(){
+        adapter = new Adapter(myList);
+        myListView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
     }
 
     public class Adapter extends BaseAdapter{

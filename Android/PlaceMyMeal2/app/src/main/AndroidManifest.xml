@@ -23,7 +23,8 @@
             android:value="@string/google_maps_key" />
 
         <activity android:name=".MainActivity" />
-        <activity android:name=".OrderPage"></activity>
+        <activity android:name=".OrderPage" />
+        <activity android:name=".MenuPage"></activity>
     </application>
 
 </manifest>
